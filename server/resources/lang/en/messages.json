@@ -1,0 +1,9 @@
+{
+  "email_confirmation_subject": "Verificação de email",
+  "email_confirmation_invalid": "Caso você não tenha criado uma conta, desconsidere este email.",
+  "email_confirmation_text": "Por favor confirme seu e-mail clicando no botão abaixo",
+  "email_confirmation_issue": "Se você estiver com problemas para clicar no botão \"Verificação de email\", copie e cole o URL abaixo no seu navegador.",
+  "email_confirmation": "Verificação de email",
+  "greetings": "Olá!",
+  "welcome": "Bem vindo"
+}

@@ -1,0 +1,35 @@
+@mjml()
+  <mjml>
+    <mj-head>
+      <mj-title>{{ t('messages.email_confirmation_subject') }} - [{{ config('app.appName') }}]</mj-title>
+    </mj-head>
+    <mj-body>
+      <mj-section>
+        <mj-column>
+          <mj-text align="center">
+            <h1>{{ config('app.appName') }}</h1>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            <h1>{{ t('messages.greetings') }} </h1>
+
+            <p>{{ t('messages.email_confirmation_text') }}</p>
+          </mj-text>
+
+          <mj-button href="{{ link }}">
+            {{ t('messages.email_confirmation') }}
+          </mj-button>
+
+          <mj-text>
+            <p>{{ t('messages.email_confirmation_invalid') }}</p>
+            <p>{{ t('messages.email_confirmation_issue') }}</p>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+  </mjml>
+@end
