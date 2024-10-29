@@ -37,6 +37,6 @@ jobs:
         working-directory: server
         run: |
           cp .env.testing .env
-          node ace generate:key
           npm install
+          node ace generate:key
           npm run test
