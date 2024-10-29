@@ -24,3 +24,10 @@ export const verifyRegisterValidator = vine.compile(
     code: vine.string().trim().maxLength(255),
   })
 )
+
+export const loginValidator = vine.compile(
+  vine.object({
+    username: vine.string().trim().maxLength(255),
+    password: vine.string().trim().maxLength(255),
+  })
+)

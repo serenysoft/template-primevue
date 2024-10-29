@@ -10,7 +10,6 @@ const { t } = useI18n();
 const props = defineProps<Props>();
 
 const errors = computed(() => props.items.map((item: any) => {
-  console.log(item);
   let message: string;
   const field = t(`attributes.${item.$property}`);
 

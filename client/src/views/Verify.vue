@@ -18,7 +18,18 @@ const onVerifyEmailClick = async () => {
   appStore.beginLoading();
   try {
     const username = await verifyEmail(route.params.code as string);
+
     router.replace({ name: 'login', query: {username} });
+
+    setTimeout(() => {
+      toast.add({
+        severity: 'success',
+        summary: t('success'),
+        detail: t('message.verifyEmailSuccess'),
+        life: TOAST_LIFE,
+        closable: false
+      })
+    }, 300);
   } finally {
     appStore.endLoading();
   }

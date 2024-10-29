@@ -6,7 +6,7 @@ export function useAuth() {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await http.post('/auth/login', {
+      const response = await http.post('/login', {
         username,
         password,
       });

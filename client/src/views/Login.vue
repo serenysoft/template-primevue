@@ -41,7 +41,7 @@ const onSubmit = async () => {
         await login(state.value.username, state.value.password);
         router.replace('/protected');
       } catch (e) {
-        error.value = t('validation.invalidLoginAndPassword');
+        error.value = t(`validation.${e.error}`);
       }
     }
   } finally {

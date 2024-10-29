@@ -26,12 +26,14 @@
     "verifyWelcome": "Estamos felizes por você ter escolhido nosso aplicativo.",
     "verifyConfirmation": "Confirme o seu e-mail clicando no botão abaixo.",
     "verifyNotReceived": "Você não recebeu o e-mail de registro de sua conta? {click} para reenviar o e-email.",
-    "verifyEmailSent": "E-mail de confirmação envidado. Verifique seu e-mail."
+    "verifyEmailSent": "E-mail de confirmação envidado. Verifique seu e-mail.",
+    "verifyEmailSuccess": "E-mail confirmado com sucesso"
   },
   "validation": {
-    "invalidLoginAndPassword": "Usuário ou senha inválida",
+    "invalidCredentials": "Usuário ou senha inválida",
     "invalidPasswordConfirmation": "Confirmação da senha não é válida",
     "usernameAlreadyExists": "E-mail já foi utilizado",
+    "userNotVerified": "E-mail não confirmado",
     "rules": {
       "email": "Email inválido",
       "invalidToken": "Requisição para alteração da senha é inválida",
