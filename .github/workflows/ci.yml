@@ -1,0 +1,41 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: template_primevue_test
+          MYSQL_USER: primevue
+          MYSQL_PASSWORD: 123456789
+          MYSQL_ROOT_PASSWORD: 123456789
+        ports:
+          - 33306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    strategy:
+      matrix:
+        node-version: ['18.x']
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setting up Node.js (v${{ matrix.node-version }}.x)
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Check Node.js version
+        run: node --version
+
+      - name: Run server tests
+        working-directory: server
+        run: |
+          cp .env.testing .env
+          npm install
+          npm run test

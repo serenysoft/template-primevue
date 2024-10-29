@@ -2,18 +2,75 @@ import { UserFactory } from '#database/factories/user_factory'
 import encryption from '@adonisjs/core/services/encryption'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { test } from '@japa/runner'
+import { DateTime } from 'luxon'
 
-test.group('Register', (group) => {
+test.group('Authentication', (group) => {
   group.each.setup(() => testUtils.db().truncate())
 
-  test('Should register new user', async ({ client }) => {
-    const response = await client.post('api/register/create').json({
-      name: 'John',
-      username: 'john@template-primevue.com',
+  test('Should handle success login', async ({ client }) => {
+    const user = await UserFactory.merge({
+      verifiedAt: DateTime.now(),
+      password: '123456789',
+    }).create()
+
+    const response = await client.post('api/login').json({
+      username: user.username,
       password: '123456789',
     })
 
-    response.assertStatus(204)
+    response.assertStatus(200)
+    response.assertBodyContains({ username: user.username })
+  })
+
+  test('Should handle invalid username', async ({ client }) => {
+    await UserFactory.create()
+
+    const response = await client.post('api/login').json({
+      username: 'invalid@template-primevue.com',
+      password: '123456789',
+    })
+
+    response.assertStatus(404)
+  })
+
+  test('Should handle unverified user', async ({ client }) => {
+    const user = await UserFactory.create()
+
+    const response = await client.post('api/login').json({
+      username: user.username,
+      password: '123456789',
+    })
+
+    response.assertStatus(400)
+    response.assertBody({ error: 'userNotVerified' })
+  })
+
+  test('Should handle login with invalid credentials', async ({ client }) => {
+    const user = await UserFactory.merge({
+      verifiedAt: DateTime.now(),
+      password: '123456789',
+    }).create()
+
+    const response = await client.post('api/login').json({
+      username: user.username,
+      password: 'invalid',
+    })
+
+    response.assertStatus(400)
+    response.assertBody({ error: 'invalidCredentials' })
+  })
+
+  test('Should register new user', async ({ client }) => {
+    const username = 'john@template-primevue.com'
+
+    const response = await client.post('api/register/create').json({
+      name: 'John',
+      username,
+      password: '123456789',
+    })
+
+    response.assertStatus(200)
+    response.assertBodyContains({ username })
   })
 
   test('Should validate unique username', async ({ client }) => {
