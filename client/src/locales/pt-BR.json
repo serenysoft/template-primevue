@@ -6,6 +6,9 @@
   "forgotPassword": "Esqueceu a senha",
   "privacityPolicy": "Política de privacidade",
   "rememberMe": "Lembrar",
+  "passwordRecovery": "Recuperação da senha",
+  "passwordReset": "Alteração da senha",
+  "send": "Enviar",
   "signIn": "Acessar",
   "signInToContinue": "Acesse para continuar",
   "signUp": "Crie sua conta",
@@ -23,6 +26,8 @@
   },
   "message": {
     "policyInfo": "Eu declaro que aceito os {license} e {privacity}.",
+    "recoveryEmailSuccess": "E-mail de recuperação de senha enviado. Verifique seu email",
+    "resetPasswordSuccess": "Senha alterada com sucesso",
     "verifyWelcome": "Estamos felizes por você ter escolhido nosso aplicativo.",
     "verifyConfirmation": "Confirme o seu e-mail clicando no botão abaixo.",
     "verifyNotReceived": "Você não recebeu o e-mail de registro de sua conta? {click} para reenviar o e-email.",
@@ -42,7 +47,8 @@
       "minLength": "{field} deve conter pelo menos {min} caracteres",
       "notFound": "{field} não existe",
       "required": "{field} não foi informado",
-      "unique": "{field} já foi utilizado"
+      "unique": "{field} já foi utilizado",
+      "userNotFound": "E-mail não existe em nossa base de dados"
     },
     "passwords": {
       "throttled": "Muitas tentativas. Tente realizar a operação mais tarde",

@@ -1,6 +1,12 @@
 import { i18n } from '#helpers/index'
 import User from '#models/user'
-import { createRegisterValidator, loginValidator, verifyRegisterValidator } from '#validators/auth'
+import {
+  createRegisterValidator,
+  loginValidator,
+  resetLinkValidation,
+  resetPasswordValidation,
+  verifyRegisterValidator,
+} from '#validators/auth'
 import type { HttpContext } from '@adonisjs/core/http'
 import config from '@adonisjs/core/services/config'
 import encryption from '@adonisjs/core/services/encryption'
@@ -27,6 +33,35 @@ export default class AuthController {
     if (!isPasswordValid) {
       return response.abort({ error: 'invalidCredentials' })
     }
+
+    return response.json(user)
+  }
+
+  async resetLink({ request, response }: HttpContext) {
+    const payload = await request.validateUsing(resetLinkValidation)
+    const user = await User.findBy({ username: payload.username })
+
+    if (!user) {
+      return response.notFound({ error: 'userNotFound' })
+    }
+
+    this.sendResetEmail(user.username)
+
+    return response.noContent()
+  }
+
+  async resetPassword({ request, response }: HttpContext) {
+    const payload = await request.validateUsing(resetPasswordValidation)
+
+    const username = encryption.decrypt(payload.code)
+    const user = await User.findBy({ username })
+
+    if (!user) {
+      return response.notFound({ error: 'userNotFound' })
+    }
+
+    user.password = payload.password
+    await user.save()
 
     return response.json(user)
   }
@@ -65,6 +100,21 @@ export default class AuthController {
     await this.sendVerifyEmail(username)
 
     return response.noContent()
+  }
+
+  private async sendResetEmail(username: string) {
+    const { t } = i18n()
+    const baseUrl = config.get('app.appUrl')
+    const code = encryption.encrypt(username)
+
+    await mail.send((message) => {
+      message
+        .to(username)
+        .subject(t('messages.email_reset_subject'))
+        .htmlView('emails/password_reset_html', {
+          link: `${baseUrl}/resetPassword/${code}`,
+        })
+    })
   }
 
   private async sendVerifyEmail(username: string) {

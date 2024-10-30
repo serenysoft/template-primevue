@@ -47,19 +47,20 @@ export function useAuth() {
     }
   };
 
-  const sendResetLink = async (email) => {
+  const sendResetLink = async (username: string) => {
     try {
-      await http.post('/send-reset-link', { email });
+      await http.post('/reset-link', { username });
     } catch (e) {
-      return e.response.data.status;
+      return e.response.data.error;
     }
   };
 
   const resetPassword = async (data) => {
     try {
-      await http.post('/reset-password', data);
+      const response = await http.post('/reset-password', data);
+      return response.data;
     } catch (e) {
-      return e.response.data.status;
+      return e.response.data;
     }
   };
 

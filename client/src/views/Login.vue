@@ -139,9 +139,12 @@ const onSubmit = async () => {
             />
             <label for="rememberme">{{ t('rememberMe') }}</label>
           </div>
-          <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">
+          <router-link
+            class="font-medium no-underline ml-2 text-right cursor-pointer text-primary"
+            :to="{name: 'recovery'}"
+          >
             {{ t('forgotPassword') }}
-          </span>
+          </router-link>
         </div>
         <Button
           :label="t('signIn')"

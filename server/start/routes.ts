@@ -14,6 +14,9 @@ router
     router.post('/register/create', [AuthController, 'create'])
     router.post('/register/verify', [AuthController, 'verify'])
     router.post('/register/resend', [AuthController, 'resend'])
+
     router.post('/login', [AuthController, 'login'])
+    router.post('/reset-link', [AuthController, 'resetLink'])
+    router.post('/reset-password', [AuthController, 'resetPassword'])
   })
   .prefix('api')

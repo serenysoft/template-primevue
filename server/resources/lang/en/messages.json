@@ -4,6 +4,12 @@
   "email_confirmation_text": "Por favor confirme seu e-mail clicando no botão abaixo",
   "email_confirmation_issue": "Se você estiver com problemas para clicar no botão \"Verificação de email\", copie e cole o URL abaixo no seu navegador.",
   "email_confirmation": "Verificação de email",
+  "email_reset": "Altere sua senha",
+  "email_reset_subject": "Recuperação da senha",
+  "email_reset_invalid": "Caso você não tenha solicitado a alteração de senha, desconsidere este email.",
+  "email_reset_issue": "Se você estiver com problemas para clicar no botão \"Altere sua senha\", copie e cole o URL abaixo no seu navegador.",
+  "email_reset_text": "Realize a alteração de senha clicando no botão abaixo",
+  "email_reset_title": "Solicitação de alteração de senha",
   "greetings": "Olá!",
   "welcome": "Bem vindo"
 }

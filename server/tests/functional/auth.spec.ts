@@ -60,6 +60,23 @@ test.group('Authentication', (group) => {
     response.assertBody({ error: 'invalidCredentials' })
   })
 
+  test('Should handle reset password', async ({ client }) => {
+    const user = await UserFactory.merge({
+      verifiedAt: DateTime.now(),
+      password: '123456789',
+    }).create()
+
+    const code = encryption.encrypt(user.username)
+
+    const response = await client.post('api/reset-password').json({
+      code,
+      password: 'newpasswd',
+    })
+
+    response.assertStatus(200)
+    response.assertBodyContains({ username: user.username })
+  })
+
   test('Should register new user', async ({ client }) => {
     const username = 'john@template-primevue.com'
 
@@ -117,5 +134,28 @@ test.group('Authentication', (group) => {
     })
 
     response.assertStatus(204)
+  })
+
+  test('Should send reset password email', async ({ client }) => {
+    const user = await UserFactory.create()
+
+    const response = await client.post(`api/reset-link`).json({
+      username: user.username,
+    })
+
+    response.assertStatus(204)
+  })
+
+  test('Should reset password', async ({ client }) => {
+    const user = await UserFactory.create()
+    const encrypted = encryption.encrypt(user.username)
+
+    const response = await client.post(`api/reset-password`).json({
+      code: encrypted,
+      password: 'abcd1234',
+    })
+
+    response.assertStatus(200)
+    response.assertBodyContains({ username: user.username })
   })
 })

@@ -25,6 +25,19 @@ export const verifyRegisterValidator = vine.compile(
   })
 )
 
+export const resetPasswordValidation = vine.compile(
+  vine.object({
+    code: vine.string().trim().maxLength(255),
+    password: vine.string().trim().maxLength(255),
+  })
+)
+
+export const resetLinkValidation = vine.compile(
+  vine.object({
+    username: vine.string().trim().maxLength(255),
+  })
+)
+
 export const loginValidator = vine.compile(
   vine.object({
     username: vine.string().trim().maxLength(255),
